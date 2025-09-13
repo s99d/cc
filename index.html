@@ -288,5 +288,41 @@ const quotes = [
         // Initialize quote
         updateQuote();
     </script>
+    <div id="time"></div>
+<div id="date"></div>
+
+<script>
+function updateTime() {
+    const now = new Date();
+
+    // Format time
+    let hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert to 12-hour format
+
+    const timeStr = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+    // Format date
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const weekday = weekdays[now.getDay()];
+
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const year = now.getFullYear();
+
+    const dateStr = `${weekday}, ${day}/${month}/${year}`;
+
+    // Update HTML
+    document.getElementById('time').textContent = timeStr;
+    document.getElementById('date').textContent = dateStr;
+}
+
+// Update every second
+setInterval(updateTime, 1000);
+updateTime(); // Initial call
+</script>
+
 </body>
 </html>
