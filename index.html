@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dammam Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a192f 0%, #172a45 50%, #303f60 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+        .glass-card {
+            background: rgba(30, 144, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(100, 149, 237, 0.7);
+        }
+    </style>
+</head>
+<body class="text-blue-100 flex items-center justify-center p-4">
+    <div class="glass-card p-8 w-full max-w-md mx-4">
+        <div class="text-center mb-8">
+            <p id="quote" class="opacity-90 italic text-center mt-2 text-2xl text-blue-200 font-medium">"The only limit to our realization of tomorrow is our doubts of today."</p>
+        </div>
+
+        <div class="flex flex-col items-center mb-8">
+            <div id="time" class="text-6xl font-light mb-2 text-glow text-blue-50"></div>
+            <div id="date" class="text-xl opacity-80 text-blue-200"></div>
+        </div>
+
+        <div class="flex items-center justify-center">
+            <div id="weather-icon" class="text-5xl mr-4"></div>
+            <div>
+                <div id="temperature" class="text-4xl font-light"></div>
+                <div id="weather-desc" class="opacity-80"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+        
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            
+            // Format time (HH:MM:SS)
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Convert 0 to 12
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format date (Day, Month Date Year)
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            
+            setTimeout(updateTime, 1000);
+        }
+        
+        // Simulate weather data (in a real app, you would fetch from a weather API)
+        function updateWeather() {
+            const weatherIcon = document.getElementById('weather-icon');
+            const temperature = document.getElementById('temperature');
+            const weatherDesc = document.getElementById('weather-desc');
+            
+            // These would come from an API in a real implementation
+            const temp = Math.floor(Math.random() * 10) + 25; // Random temp between 25-35°C
+            const conditions = ['Sunny', 'Partly Cloudy', 'Clear'];
+            const condition = conditions[Math.floor(Math.random() * conditions.length)];
+            
+            temperature.textContent = `${temp}°C`;
+            weatherDesc.textContent = condition;
+            
+            // Set appropriate icon
+            if (condition.includes('Sunny')) {
+                weatherIcon.innerHTML = '<i data-feather="sun"></i>';
+            } else if (condition.includes('Cloudy')) {
+                weatherIcon.innerHTML = '<i data-feather="cloud"></i>';
+            } else {
+                weatherIcon.innerHTML = '<i data-feather="moon"></i>';
+            }
+            
+            feather.replace();
+        }
+        
+        // Initialize
+        updateTime();
+        updateWeather();
+        
+        // Quotes array
+const quotes = [
+    "You are capable of amazing things.",
+    "Today is a perfect day to be happy.",
+    "Small steps every day lead to big results.",
+    "Your potential is endless, go for it!",
+    "Dream big, sparkle more, shine bright!",
+    "Be a rainbow in someone else's cloud.",
+    "You're braver than you believe, stronger than you seem, and smarter than you think.",
+    "The world needs your unique sparkle.",
+    "Make today so awesome that yesterday gets jealous.",
+    "You're like a star - you shine brightest in the darkest times.",
+    "Sprinkle kindness like confetti!",
+    "You've got this, cutie pie!",
+    "Today's a great day to be a great day!",
+    "Stay positive, work hard, make it happen!",
+    "You're one in a melon!",
+    "Be the reason someone smiles today.",
+    "Good vibes only!",
+    "You're totally pawsome!",
+    "Keep your face to the sunshine and you cannot see a shadow.",
+    "You're magical, don't ever forget it!",
+
+    // --- Added quotes ---
+    "Happiness looks good on you.",
+    "Shine so bright the world can’t ignore you.",
+    "A smile is the prettiest thing you can wear.",
+    "Progress, not perfection.",
+    "Stars can’t shine without darkness.",
+    "Believe in miracles, they happen every day.",
+    "You are stronger than your excuses.",
+    "Kindness never goes out of style.",
+    "One day or day one — you decide.",
+    "Radiate positivity everywhere you go.",
+    "Be your own kind of beautiful.",
+    "Collect memories, not things.",
+    "Every day is a fresh start.",
+    "Courage is contagious.",
+    "You’re the sparkle in someone’s sky.",
+    "Hustle and heart set you apart.",
+    "Be unstoppable, be you.",
+    "Your vibe attracts your tribe.",
+    "Joy is a choice, choose it.",
+    "Smiles are contagious, spread them freely.",
+    "Turn the pain into power.",
+    "You’re blooming beautifully.",
+    "Celebrate every little victory.",
+    "Positive mind, positive life.",
+    "The best is yet to come.",
+    "Let your dreams be your wings.",
+    "You light up the room.",
+    "Life is tough, but so are you.",
+    "Your smile can change the world.",
+    "Bloom where you are planted.",
+    "Radiate love and kindness.",
+    "Stay wild, moon child.",
+    "Focus on the good stuff.",
+    "You are enough, just as you are.",
+    "Don’t just exist, live.",
+    "Never stop looking up.",
+    "Choose joy daily.",
+    "You matter more than you know.",
+    "Every flower must grow through dirt.",
+    "Be bold, be brave, be you.",
+    "Gratitude changes everything.",
+    "Keep shining, the world needs your light.",
+    "Kind people are my kind of people.",
+    "Rise by lifting others.",
+    "Chase the sun, not the shade.",
+    "A kind word can change someone’s day.",
+    "Smile more, worry less.",
+    "Your story is still being written.",
+    "Dream it, wish it, do it.",
+    "Be a voice, not an echo.",
+    "Don’t stop until you’re proud.",
+    "Love yourself first.",
+    "Great things never came from comfort zones.",
+    "Your energy introduces you before you even speak.",
+    "You’re doing better than you think.",
+    "Shine bright like the morning sun.",
+    "Fill your heart with gratitude.",
+    "Dare to begin, dare to succeed.",
+    "Your dreams are valid.",
+    "It always seems impossible until it’s done.",
+    "Create the life you can’t wait to wake up to.",
+    "Don’t be afraid to sparkle a little brighter.",
+    "Celebrate how far you’ve come.",
+    "Be fearless in the pursuit of what sets your soul on fire.",
+    "Kindness costs nothing, but means everything.",
+    "The best view comes after the hardest climb.",
+    "Stay curious, stay inspired.",
+    "You are a work of art.",
+    "Your light shines brighter than any darkness.",
+    "Keep moving forward.",
+    "Spread love everywhere you go.",
+    "Happiness is homemade.",
+    "Be the sunshine on a cloudy day.",
+    "Difficult roads lead to beautiful destinations.",
+    "You’re glowing, keep it up.",
+    "Life is better when you’re laughing.",
+    "You are worthy of every good thing.",
+    "Stars shine brighter after the darkest nights.",
+    "Don’t quit your daydream.",
+    "Trust the magic of new beginnings.",
+    "Your kindness makes the world better.",
+    "Even the smallest step counts.",
+    "You’re a limited edition, embrace it.",
+    "Dream big, work hard, stay humble.",
+    "Love more, worry less.",
+    "Let your soul shine.",
+    "Your happiness inspires others.",
+    "Stay golden.",
+    "Keep dreaming, keep believing.",
+    "One smile can start a friendship.",
+    "Shine on, you crazy diamond.",
+    "The world is better with you in it.",
+    "Your possibilities are endless.",
+    "Be gentle with yourself.",
+    "You’re doing amazing, sweetie.",
+    "Throw kindness around like it’s confetti.",
+    "Your laughter is music to the world.",
+    "Keep blooming, beautiful soul.",
+    "Be a light in this world.",
+    "The universe is rooting for you."
+];
+
+
+        function updateQuote() {
+            const quoteElement = document.getElementById('quote');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteElement.textContent = `"${randomQuote}"`;
+        }
+
+        // Update weather and quote periodically (every 30 minutes)
+        setInterval(updateWeather, 1800000);
+        setInterval(updateQuote, 1800000);
+        
+        // Initialize quote
+        updateQuote();
+    </script>
+</body>
+</html>
